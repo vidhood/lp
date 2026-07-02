@@ -397,20 +397,19 @@ const params = new URLSearchParams(window.location.search);
 
 let video = params.get("v");
 
-if (video) {
+// ID default jika tidak ada parameter
+if (!video) {
+    video = "k84OOz1w1";
+}
 
+// Jika hanya berupa ID Videy, ubah menjadi URL lengkap
 if (!video.startsWith("http")) {
-video = "https://cdn.videy.co/" + video;
+    video = "https://cdn.videy.co/" + video;
 }
 
+// Tambahkan .mp4 jika belum ada
 if (!video.endsWith(".mp4")) {
-video = "https://cdn.videy.co/k84OOz1w1.mp4";
-}
-
-} else {
-
-video = "https://cdn.videy.co/k84OOz1w1.mp4";
-
+    video += ".mp4";
 }
 
 const player = document.getElementById("player");
@@ -422,8 +421,7 @@ player.load();
 
 player.play().catch(() => {});
 
-/* DISABLE RIGHT CLICK */
-
+// Disable klik kanan
 player.addEventListener("contextmenu", e => e.preventDefault());
 
 /* =========================
